@@ -103,20 +103,6 @@ app.route('/ticket')
             .then((value) => {
                 seqNo = Math.round(Math.random() * 100);
 
-                // add twilio app credentials
-                const accountSid = 'ACe95761f79c6402d49380108bdba3be0c';
-                const authToken = '73cd5dd816f8ccbe3bde5ec5c21a6e35';
-                const twilioPhoneNumber = '+18589430166';
-
-                const client = new Twilio(accountSid, authToken);
-
-                // send ticket link to user via sms
-                // client.messages.create({
-                //     body: `Open up this link to view your valet ticket: ${ticketLink}`,
-                //     to: phoneNumber,
-                //     from: twilioPhoneNumber
-                // });
-
                 console.log(`==========\n${ticketLink}\n==========`);
 
                 res.status(200).send();
