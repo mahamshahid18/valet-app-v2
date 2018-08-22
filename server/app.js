@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -9,6 +10,7 @@ const DbConnector = require('./db/DbConnector');
 let UserController = require('./user/UserController');
 let QrCodeController = require('./qrcode/QrCodeController');
 let TicketController = require('./ticket/TicketController');
+let AuthController = require('./auth/AuthController');
 
 const app = express();
 // support encoded request bodies
@@ -37,3 +39,4 @@ app.listen(3000, () => {
 app.use('/ticket', TicketController);
 app.use('/user', UserController);
 app.use('/qrcode', QrCodeController);
+app.use('/authorize', AuthController);
