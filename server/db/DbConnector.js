@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose = require('./mongoose');
+const mongoose = require('mongoose');
 
 class DbConnector {
     constructor(server, port, db) {
