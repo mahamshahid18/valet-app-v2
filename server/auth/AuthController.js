@@ -19,17 +19,16 @@ router.route('/')
         })
         .then((user) => {
             if(!user) {
-                res.status(401).send({ auth: false, token: null});
-            } else {
-                let token = jwt.sign({ id: user._id }, tokenSecret, {
-                    expiresIn: '1h'
-                });
-                res.status(200);
-                res.send({ auth:true, token: token});
+               return res.status(401).send({ auth: false, token: null});
             }
+
+            let token = jwt.sign({ id: user._id }, tokenSecret, {
+                expiresIn: '1h'
+            });
+            res.status(200);
+            res.send({ auth:true, token: token});
         }, (err) => {
-            next(err);
-            res.send(err);
+            return next(err);
         });
     });
 
