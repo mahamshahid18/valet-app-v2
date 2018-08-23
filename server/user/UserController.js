@@ -2,6 +2,7 @@
 
 const express = require('express');
 const User = require('./User');
+const tokenCheck = require('../auth/TokenCheck');
 
 const router = express.Router();
 
@@ -16,22 +17,23 @@ const router = express.Router();
  * Returns a JSON object containing user details
  */
 router.route('/')
-    .get((req, res, next) => {
+    .get(tokenCheck, (req, res, next) => {
         const ticketNum = req.query.ticket;
-        User.findOne(
-            { "ticket.no": ticketNum }
-        )
-            .then((user) => {
-                res.status(200);
-                res.json(user);
-                console.log('===========\nUser sent\n===========');
-                console.log(user);
-            }, (err) => {
-                next(err);
-                res.send(err);
-            });
+        User.findOne({
+            "ticket.no": ticketNum,
+            "_id": req.userId
+        })
+        .then((user) => {
+            res.status(200);
+            res.json(user);
+            console.log('===========\nUser sent\n===========');
+            console.log(user);
+        }, (err) => {
+            next(err);
+            res.send(err);
+        });
     })
-    .patch((req, res) => {
+    .patch(tokenCheck, (req, res, next) => {
         const ticketNum = req.query.ticket;
         User.updateOne(
             { "ticket.no": ticketNum },

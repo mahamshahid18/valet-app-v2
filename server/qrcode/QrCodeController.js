@@ -2,6 +2,7 @@
 
 const express = require('express');
 const User = require('../user/User');
+const checkToken = require('../auth/TokenCheck');
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ const router = express.Router();
  * Returns a JSON object containing user data for validation
  */
 router.route('/')
-    .get((req, res, next) => {
+    .get(checkToken, (req, res, next) => {
         const ticketNum = req.query.ticket;
         User.findOne(
             { "ticket.no": ticketNum },
