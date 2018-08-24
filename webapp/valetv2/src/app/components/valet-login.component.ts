@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-valet-login',
-    template: '../templates/app.component.html',
+    templateUrl: '../templates/valet-login.component.html',
     styleUrls: ['../../styles/components/valet-login.component.scss']
 })
 

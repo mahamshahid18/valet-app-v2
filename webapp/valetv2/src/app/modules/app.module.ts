@@ -10,6 +10,7 @@ import { PaymentComponent } from '../components/payment.component';
 import { TicketCreationComponent } from '../components/ticket-creation.component';
 import { TicketVerificationComponent } from '../components/ticket-verification.component';
 import { TicketViewComponent } from '../components/ticket-view.component';
+import { InvalidRouteComponent } from '../components/invalid-route.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TicketViewComponent } from '../components/ticket-view.component';
     PaymentComponent,
     TicketCreationComponent,
     TicketVerificationComponent,
-    TicketViewComponent
+    TicketViewComponent,
+    InvalidRouteComponent
   ],
   imports: [
     BrowserModule,
