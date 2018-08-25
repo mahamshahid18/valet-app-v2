@@ -1,1 +1,40 @@
-<h1>User login component</h1>
+<div class="container">
+    <form #loginForm="ngForm">
+        <div>
+            <label for="ticket_no">
+                Ticket No.
+            </label>
+            <input type="text"
+                name="ticket_no"
+                [(ngModel)]="userModel.ticket_no"
+                #ticketNo
+                disabled>
+        </div>
+        <div>
+            <label for="phone">
+                Phone No.
+            </label>
+            <input type="tel"
+                name="phone"
+                placeholder="Pattern like: +92-123-4567890"
+                [(ngModel)]="userModel.phone"
+                #phone
+                required
+                pattern="[+][0-9]{2}-[0-9]{3}-[0-9]{7}">
+        </div>
+        <div>
+            <label for="reg_no">
+                Car Registration No.
+            </label>
+            <input type="text"
+                name="reg_no"
+                placeholder="Enter your car's registration number"
+                [(ngModel)]="userModel.reg_no"
+                #regNo
+                required>
+        </div>
+        <button (click)="login(loginForm.form)">
+            Submit
+        </button>
+    </form>
+</div>
