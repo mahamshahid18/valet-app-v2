@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { TokenUtilService } from '../services/token-util.service';
 import { AuthResponse } from '../interfaces/AuthResponse';
 import { Subscription } from 'rxjs';
 
@@ -20,6 +21,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     subscription: Subscription;
 
     constructor(private auth: AuthService,
+        private tokenUtil: TokenUtilService,
         private route: ActivatedRoute,
         private router: Router) {
     }
@@ -43,7 +45,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
             )
             .subscribe((response: AuthResponse) => {
                 if (response.auth) {
-                    this.auth.setToken(response.token);
+                    this.tokenUtil.setToken(response.token);
                     this.router.navigateByUrl(`user/${this.userModel.ticket_no}`,
                         { skipLocationChange: false });
                 }
