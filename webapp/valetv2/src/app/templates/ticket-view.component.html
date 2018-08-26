@@ -1,1 +1,42 @@
-<h1>Ticket view component</h1>
+<h1>
+    Welcome
+    <span> {{ user.first_name }} {{ user.last_name }} </span>
+</h1>
+
+<div>
+    <ul>
+        <li>
+            <label>
+                Car Registration No:
+            </label>
+            <span>
+                {{ user.car.reg_no }}
+            </span>
+        </li>
+        <li>
+            <label>
+                Car Details:
+            </label>
+            <span>
+                {{ user.car.color }}
+                {{ user.car.manufacturer }}
+                {{ user.car.model }}
+            </span>
+        </li>
+        <li>
+            <label>
+                Amount {{ (user.ticket.paid)? "Paid" : "Due" }}:
+            </label>
+            <span>
+                {{ user.ticket.amount }}
+            </span>
+        </li>
+    </ul>
+    <button>
+        {{ (user.ticket.paid) ? "Call Car" : "Pay For Ticket" }}
+    </button>
+</div>
+
+<div *ngIf="!user.ticket.paid">
+    <app-payment></app-payment>
+</div>
