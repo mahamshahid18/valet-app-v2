@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthService } from '../services/auth.service';
 import { DataService } from '../services/data.service';
 import { TokenUtilService } from '../services/token-util.service';
 
@@ -14,6 +13,8 @@ import { switchMap } from 'rxjs/operators';
 })
 
 export class TicketViewComponent implements OnInit, OnDestroy {
+
+    ticket_no = null;
 
     user: any = {
         first_name: '',
@@ -31,11 +32,15 @@ export class TicketViewComponent implements OnInit, OnDestroy {
         }
     };
 
-    constructor(private auth: AuthService,
-        private data: DataService,
+    ticketPaid = false;
+    showPayment = false;
+    callCarPressed = false;
+    buttonCtaText: String = '';
+
+    constructor(private data: DataService,
         private tokenUtil: TokenUtilService,
-        private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
@@ -49,17 +54,29 @@ export class TicketViewComponent implements OnInit, OnDestroy {
     }
 
     getData() {
-        let ticket_no = null;
         this.route.params
             .pipe(
                 switchMap(param => {
-                    ticket_no = param.ticket_no;
-                    return this.data.getUser(ticket_no, this.tokenUtil.getToken());
+                    this.ticket_no = param.ticket_no;
+                    return this.data.getUser(this.ticket_no, this.tokenUtil.getToken());
                 })
             )
             .subscribe((response) => {
                 this.user = response;
+                this.buttonCtaText = this.user.ticket.paid ?
+                    'Call Car' : 'Make Payment';
+                this.ticketPaid = this.user.ticket.paid;
             });
+    }
+
+    performCta() {
+        this.callCarPressed = true;
+        this.showPayment = !this.ticketPaid && this.callCarPressed;
+
+        if (!this.showPayment) {
+            this.router.navigateByUrl(`validate/${this.ticket_no}`,
+                { skipLocationChange: false });
+        }
     }
 
 }

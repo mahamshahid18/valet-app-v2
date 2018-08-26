@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'valet/ticket', component: TicketCreationComponent },
   { path: 'user/:ticket_no/login', component: UserLoginComponent },
   { path: 'user/:ticket_no', component: TicketViewComponent },
-  { path: 'validate', component: TicketVerificationComponent },
+  { path: 'validate/:ticket_no', component: TicketVerificationComponent },
   { path: '**', component: InvalidRouteComponent },
 ];
 

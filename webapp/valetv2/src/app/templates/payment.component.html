@@ -1,1 +1,49 @@
-<h1>Payment component</h1>
+<h3>
+    Pay for your ticket
+    <p>You can use your Credit or Debit Card</p>
+</h3>
+
+<form #paymentForm="ngForm">
+    <div>
+        <label for="ccNum">
+            Card Number:
+        </label>
+        <input type="text"
+            placeholder="Enter your 14 digit card no."
+            required
+            pattern="[0-9]{14}"
+            name="ccNum"
+            [(ngModel)]="paymentDetails.no"
+            #ccNum>
+    </div>
+    <div>
+        <label for="cvv">
+            CVV
+        </label>
+        <input type="text"
+            placeholder="Enter your card's CVV number"
+            required
+            min="3"
+            max="5"
+            pattern="^(\d{3,5})$"
+            name="cvv"
+            [(ngModel)]="paymentDetails.cvv"
+            #cvv>
+    </div>
+    <div>
+        <label for="expiry">
+            Expiry
+        </label>
+        <input type="date"
+            placeholder="Enter your card's expiry date"
+            required
+            min="2018-08-27"
+            max="2030-08-27"
+            name="expiry"
+            [(ngModel)]="paymentDetails.expiry"
+            #expiry>
+    </div>
+    <button (click)="callPaymentApi(paymentForm.form)">
+        Pay
+    </button>
+</form>

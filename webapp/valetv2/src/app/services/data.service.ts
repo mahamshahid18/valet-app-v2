@@ -26,4 +26,14 @@ export class DataService {
     return this.http.get(`${this.url}/user?ticket=${ticketNo}`,
       this.getAuthHeader(token));
   }
+
+  updatePaymentStatus(ticketNo, token) {
+    return this.http.patch(`${this.url}/user?ticket=${ticketNo}`,
+      null, this.getAuthHeader(token));
+  }
+
+  getQrCode(ticketNo, token) {
+    return this.http.get(`${this.url}/qrcode?ticket=${ticketNo}`,
+      this.getAuthHeader(token));
+  }
 }

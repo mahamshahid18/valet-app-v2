@@ -32,11 +32,11 @@
             </span>
         </li>
     </ul>
-    <button>
-        {{ (user.ticket.paid) ? "Call Car" : "Pay For Ticket" }}
+    <button (click)="performCta()">
+        {{ buttonCtaText }}
     </button>
 </div>
 
-<div *ngIf="!user.ticket.paid">
+<div *ngIf="showPayment">
     <app-payment></app-payment>
 </div>

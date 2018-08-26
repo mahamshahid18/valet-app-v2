@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { AppComponent } from '../components/app.component';
 import { ValetLoginComponent } from '../components/valet-login.component';
@@ -31,7 +32,8 @@ import { DataService } from '../services/data.service';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    QRCodeModule
   ],
   providers: [
     AuthService,

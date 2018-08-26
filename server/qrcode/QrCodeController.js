@@ -22,16 +22,17 @@ router.route('/')
         const ticketNum = req.query.ticket;
         User.findOne(
             { "ticket.no": ticketNum },
-            { "ticket.paid": 1, "ticket.amount": 1, "car.reg_no": 1 }
+            { "ticket.no": 1, "ticket.paid": 1, "ticket.amount": 1, "car.reg_no": 1 }
         )
         .then((user) => {
-            const segments = [
-                { 'data': `${user.car.reg_no}\n`, mode: 'byte' },
-                { 'data': `${user.ticket.amount}\n`, mode: 'byte' },
-                { 'data': user.ticket.paid ? 'PAID' : 'UNPAID', mode: 'alphanumeric' }
-            ];
+            const data = {
+                ticket_no: user.ticket.no,
+                reg_no: user.car.reg_no,
+                amount: user.ticket.amount,
+                status: user.ticket.paid ? 'PAID' : 'UNPAID'
+            };
             res.status(200);
-            res.send(segments);
+            res.send(data);
             console.log('===========\nQRCode sent\n===========');
         }, (err) => {
             next(err);

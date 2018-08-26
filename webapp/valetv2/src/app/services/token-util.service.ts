@@ -48,6 +48,7 @@ export class TokenUtilService {
     return this.http.get(`${this.url}/user/verify`, this.getAuthHeader(token))
       .pipe(
         catchError((err) => {
+          // TODO: navigate to unauthorized route instead
           this.router.navigateByUrl('/', { skipLocationChange: false });
           throw err;
         })
