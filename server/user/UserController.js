@@ -48,4 +48,17 @@ router.route('/')
         });
     });
 
+router.route('/verify')
+    .get(tokenCheck, (req, res, next) => {
+        User.findOne({
+            "_id": req.userId
+        })
+        .then((user) => {
+            res.status(200).send();
+        }, (err) => {
+            next(err);
+            res.send(err);
+        });
+    });
+
 module.exports = router;
