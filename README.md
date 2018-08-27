@@ -11,6 +11,8 @@
 * Add authentication flow for valet to generate tickets
 * Send ticket_no as base64 encoded string (as route param)
 * Add issuer and audience field to auth token's header
+* ~Add route for valet authentication~
+* ~Add route for valet authorization (verification)~
 
 ## Front-end
 
