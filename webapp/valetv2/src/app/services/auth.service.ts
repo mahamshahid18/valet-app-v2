@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({
   providedIn: 'root'
@@ -22,14 +23,21 @@ export class AuthService {
       phone,
       reg_no
     };
-    return this.http.post(`${this.url}/authorize`, body)
+    return this.http.post(`${this.url}/authorize/user`, body)
       .pipe(
         catchError((err) => { throw err; })
       );
   }
 
-  loginValet() {
-    // TODO: implement valet login logic
+  loginValet(uname, pwd) {
+    const body = {
+      uname,
+      pwd: Md5.hashStr(pwd)
+    };
+    return this.http.post(`${this.url}/authorize/valet`, body)
+      .pipe(
+        catchError((err) => { throw err; })
+      );
   }
 
 }

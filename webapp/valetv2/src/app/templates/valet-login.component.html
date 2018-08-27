@@ -1,1 +1,33 @@
-<h1>Valet login component</h1>
+<h3>
+    Welcome to Valet App
+</h3>
+<p>
+    Please login with your credentials to gain access.
+</p>
+
+<div>
+    <form #valetLogin="ngForm">
+        <label for="uname">
+            Username:
+        </label>
+        <input type="text"
+            required
+            placeholder="Enter username"
+            name="uname"
+            [(ngModel)]="valet.uname"
+            #uname>
+
+        <label for="pwd">
+            Password:
+        </label>
+        <input type="password"
+            required
+            placeholder="Enter password"
+            name="pwd"
+            [(ngModel)]="valet.pwd"
+            #pwd>
+        <button (click)="login(valetLogin.form)">
+            Login
+        </button>
+    </form>
+</div>

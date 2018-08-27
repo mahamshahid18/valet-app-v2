@@ -25,27 +25,32 @@ export class TokenUtilService {
     };
   }
 
-  setToken(token) {
-    localStorage.setItem('token', token);
+  setToken(token, name?: string) {
+    const tokenName = name ? name : 'token';
+    localStorage.setItem(tokenName, token);
   }
 
-  getToken() {
-    return localStorage.getItem('token');
+  getToken(name?: string) {
+    const tokenName = name ? name : 'token';
+    return localStorage.getItem(tokenName);
   }
 
-  checkTokenExists() {
-    const token = localStorage.getItem('token');
+  checkTokenExists(name?: string) {
+    const tokenName = name ? name : 'token';
+    const token = localStorage.getItem(tokenName);
     return ((token !== null) && (token !== undefined));
   }
 
-  isTokenValid() {
-    const tokenExists = this.checkTokenExists();
+  isTokenValid(path?: Boolean, tokenName?: string) {
+    const tokenExists = this.checkTokenExists(tokenName);
+    const urlPath = path ? '/valet/verify' : '/user/verify';
+
     if (!tokenExists) {
       this.router.navigateByUrl('/', { skipLocationChange: false });
     }
 
-    const token = this.getToken();
-    return this.http.get(`${this.url}/user/verify`, this.getAuthHeader(token))
+    const token = this.getToken(tokenName);
+    return this.http.get(`${this.url}${urlPath}`, this.getAuthHeader(token))
       .pipe(
         catchError((err) => {
           // TODO: navigate to unauthorized route instead
