@@ -11,6 +11,7 @@ let UserController = require('./user/UserController');
 let QrCodeController = require('./qrcode/QrCodeController');
 let TicketController = require('./ticket/TicketController');
 let AuthController = require('./auth/AuthController');
+let ValetController = require('./valet/ValetController');
 
 const app = express();
 // support encoded request bodies
@@ -38,5 +39,6 @@ app.listen(3000, () => {
 
 app.use('/ticket', TicketController);
 app.use('/user', UserController);
+app.use('/valet', ValetController);
 app.use('/qrcode', QrCodeController);
 app.use('/authorize', AuthController);
