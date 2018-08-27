@@ -51,7 +51,7 @@ router.route('/')
 router.route('/verify')
     .get(tokenCheck, (req, res, next) => {
         User.findOne({
-            "_id": req.userId
+            "_id": req.id
         })
         .then((user) => {
             res.status(200).send();
