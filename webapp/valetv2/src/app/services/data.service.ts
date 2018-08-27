@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment} from '../../environments/environment';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,13 @@ export class DataService {
   getQrCode(ticketNo, token) {
     return this.http.get(`${this.url}/qrcode?ticket=${ticketNo}`,
       this.getAuthHeader(token));
+  }
+
+  createTicket(values, token) {
+    return this.http.post(`${this.url}/ticket`, values,
+      this.getAuthHeader(token))
+      .pipe(
+        catchError((err) => { throw err; })
+      );
   }
 }

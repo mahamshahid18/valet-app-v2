@@ -62,7 +62,11 @@ router.route('/')
                 // }, null, 4));
             }, (err) => {
                 next(err);
-                res.send(err);
+                res.status(500);
+                res.send({
+                    status: 500,
+                    error: err,
+                });
             });
     });
 
