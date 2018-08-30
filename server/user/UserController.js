@@ -21,7 +21,7 @@ router.route('/')
         const ticketNum = req.query.ticket;
         User.findOne({
             "ticket.no": ticketNum,
-            "_id": req.userId
+            "_id": req.id
         })
         .then((user) => {
             res.status(200);

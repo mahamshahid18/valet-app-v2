@@ -14,7 +14,7 @@ let checkToken = (req, res, next) => {
         if (err) {
             res.status(401);
             res.send({ auth: false, message: 'Invalid token' });
-            next(err);
+            return next(err);
         }
         req.id = decoded.id;
         next();
