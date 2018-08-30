@@ -1,6 +1,9 @@
 <div class="container">
-    <form #loginForm="ngForm">
-        <div>
+    <h1>
+        Please login to view your e-ticket
+    </h1>
+    <form #loginForm="ngForm" class="form-container">
+        <div class="form-item">
             <label for="ticket_no">
                 Ticket No.
             </label>
@@ -10,7 +13,7 @@
                 #ticketNo
                 disabled>
         </div>
-        <div>
+        <div class="form-item">
             <label for="phone">
                 Phone No.
             </label>
@@ -21,8 +24,17 @@
                 #phone
                 required
                 pattern="[+][0-9]{2}-[0-9]{3}-[0-9]{7}">
+            <!-- use this for form errors, insert classes using angular                 -->
+            <!-- <div class="error-container">
+                <div class="error">
+                    <span>
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    Error message
+                </div>
+            </div> -->
         </div>
-        <div>
+        <div class="form-item">
             <label for="reg_no">
                 Car Registration No.
             </label>
@@ -33,8 +45,9 @@
                 #regNo
                 required>
         </div>
-        <button (click)="login(loginForm.form)">
-            Submit
+        <button class="form-btn btn-blue"
+            (click)="login(loginForm.form)">
+            Login and view ticket
         </button>
     </form>
 </div>

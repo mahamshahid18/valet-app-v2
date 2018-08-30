@@ -1,88 +1,97 @@
 <div>
     <h1>
-        Customer Details
+        Enter customer details to generate ticket
     </h1>
 
-    <form #userDetailForm="ngForm">
-        <label for="first_name">
-            First Name
-        </label>
-        <input type="text"
-            required
-            placeholder="Enter your first name"
-            [(ngModel)]="ticket.firstName"
-            #firstName
-            name="first_name"
-        >
+    <form #userDetailForm="ngForm" class="form-container">
+        <div class="form-item">
+            <label for="first_name">
+                First Name
+            </label>
+            <input type="text"
+                required
+                placeholder="Enter your first name"
+                [(ngModel)]="ticket.firstName"
+                #firstName
+                name="first_name"
+            >
+        </div>
+        <div class="form-item">
+            <label for="last_name">
+                Last Name
+            </label>
+            <input type="text"
+                required
+                placeholder="Enter your surname"
+                [(ngModel)]="ticket.lastName"
+                #lastName
+                name="last_name"
+            >
+        </div>
+        <div class="form-item">
+            <label for="phone_number">
+                Phone Number
+            </label>
+            <input type="tel"
+                required
+                placeholder="Pattern like: +92-123-4567890"
+                [(ngModel)]="ticket.phone"
+                #phone
+                name="phone_no"
+            >
+             <!-- pattern="^(+[\d]{2,3}-[\d]{3}-[\d]{7,8})$" -->
+        </div>
+        <div class="form-item">
+            <label for="reg_no">
+                Car Registration Number
+            </label>
+            <input type="text"
+                required
+                placeholder="Please enter your car's registration number"
+                [(ngModel)]="ticket.regNo"
+                #regNo
+                name="reg_no"
+            >
+        </div>
+        <div class="form-item">
+            <label for="manufacturer">
+                Car Manufacturer
+            </label>
+            <input type="text"
+                required
+                placeholder="Example: Honda"
+                [(ngModel)]="ticket.manufacturer"
+                #manufacturer
+                name="manufacturer"
+            >
+        </div>
+        <div class="form-item">
+            <label for="model">
+                Car Model
+            </label>
+            <input type="text"
+                required
+                placeholder="Example: Accord"
+                [(ngModel)]="ticket.model"
+                #model
+                name="model"
+            >
+        </div>
+        <div class="form-item">
+            <label for="color">
+                Car Color
+            </label>
+            <input type="text"
+                required
+                placeholder="Pearly White"
+                [(ngModel)]="ticket.color"
+                #color
+                name="color"
+            >
+        </div>
 
-        <label for="last_name">
-            Last Name
-        </label>
-        <input type="text"
-            required
-            placeholder="Enter your surname"
-            [(ngModel)]="ticket.lastName"
-            #lastName
-            name="last_name"
-        >
-
-        <label for="phone_number">
-            Phone Number
-        </label>
-        <input type="tel"
-            required
-            placeholder="Pattern like: +92-123-4567890"
-            [(ngModel)]="ticket.phone"
-            #phone
-            name="phone_no"
-        >
-         <!-- pattern="^(+[\d]{2,3}-[\d]{3}-[\d]{7,8})$" -->
-
-        <label for="reg_no">
-            Car Registration Number
-        </label>
-        <input type="text"
-            required
-            placeholder="Please enter your car's registration number"
-            [(ngModel)]="ticket.regNo"
-            #regNo
-            name="reg_no"
-        >
-
-        <label for="manufacturer">
-            Car Manufacturer
-        </label>
-        <input type="text"
-            required
-            placeholder="Example: Honda"
-            [(ngModel)]="ticket.manufacturer"
-            #manufacturer
-            name="manufacturer"
-        >
-
-        <label for="model">
-            Car Model
-        </label>
-        <input type="text"
-            required
-            placeholder="Example: Accord"
-            [(ngModel)]="ticket.model"
-            #model
-            name="model"
-        >
-
-        <label for="color">
-            Car Color
-        </label>
-        <input type="text"
-            required
-            placeholder="Pearly White"
-            [(ngModel)]="ticket.color"
-            #color
-            name="color"
-        >
-
-        <button (click)="generateTicket(userDetailForm.form)">
+        <button class="form-btn btn-blue"
+            (click)="generateTicket(userDetailForm.form)">
             Generate Ticket
         </button>
     </form>

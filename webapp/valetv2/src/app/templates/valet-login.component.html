@@ -1,32 +1,45 @@
-<h3>
-    Welcome to Valet App
-</h3>
+<h1>
+    Welcome to Valet Automation App
+</h1>
 <p>
-    Please login with your credentials to gain access.
+    Please login with your credentials to generate e-tickets.
 </p>
 
 <div>
-    <form #valetLogin="ngForm">
-        <label for="uname">
-            Username:
-        </label>
-        <input type="text"
-            required
-            placeholder="Enter username"
-            name="uname"
-            [(ngModel)]="valet.uname"
-            #uname>
-
-        <label for="pwd">
-            Password:
-        </label>
-        <input type="password"
-            required
-            placeholder="Enter password"
-            name="pwd"
-            [(ngModel)]="valet.pwd"
-            #pwd>
-        <button (click)="login(valetLogin.form)">
+    <form #valetLogin="ngForm" class="form-container">
+        <div class="form-item">
+            <label for="uname">
+                Username
+            </label>
+            <input type="text"
+                required
+                placeholder="Enter username"
+                name="uname"
+                [(ngModel)]="valet.uname"
+                #uname>
+            <!-- use this for form errors, insert classes using angular                 -->
+            <!-- <div class="error-container">
+                <div class="error">
+                    <span>
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    Error message
+                </div>
+            </div> -->
+        </div>
+        <div class="form-item">
+            <label for="pwd">
+                Password
+            </label>
+            <input type="password"
+                required
+                placeholder="Enter password"
+                name="pwd"
+                [(ngModel)]="valet.pwd"
+                #pwd>
+        </div>
+        <button class="form-btn btn-blue"
+            (click)="login(valetLogin.form)">
             Login
         </button>
     </form>
