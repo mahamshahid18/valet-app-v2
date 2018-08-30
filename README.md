@@ -8,8 +8,7 @@
 * Use generic error handler
 * ~Make internal routes auth protected routes~
 * ~Implement authentication and authorization~
-* Add authentication flow for valet to generate tickets
-* Send ticket_no as base64 encoded string (as route param)
+* ~Add authentication flow for valet to generate tickets~
 * Add issuer and audience field to auth token's header
 * ~Add route for valet authentication~
 * ~Add route for valet authorization (verification)~
@@ -17,10 +16,9 @@
 
 ## Front-end
 
-* Decode ticket_no from base64 encoded string (when reading route params)
-* Add styling to user login form
+* ~Add styling to all forms~
+* ~Add validation styles to all forms~
 * Add validation checks to user login form
-* Add validation styles to user login form
 * Add notification service to display info/error messages
 * Add route for handling 401 (unauthorized request) error
 * Add error handler to data service to redirect to the unauthorized url when the 401 error is returned from http call
