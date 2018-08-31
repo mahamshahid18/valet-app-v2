@@ -37,7 +37,7 @@ router.use((promise, req, res, next) => {
 
     promise.then((resource) => {
         if (!resource) {
-            return res.status(401).send({ auth: false, token: null });
+            return res.status(404).send('No such resource exists!');
         }
 
         let token = jwt.sign({ id: resource._id }, tokenSecret, {
