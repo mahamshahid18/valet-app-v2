@@ -24,6 +24,18 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
 
     sub: Subscription;
 
+    focus = {
+        firstName: false,
+        lastName: false,
+        phone: false,
+        regNo: false,
+        manufacturer: false,
+        model: false,
+        color: false,
+    };
+
+    loginPressed = false;
+
     constructor(private data: DataService,
         private tokenUtil: TokenUtilService) { }
 
@@ -37,11 +49,23 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
     }
 
     generateTicket(form) {
-        this.data.createTicket(form.value, this.tokenUtil.getToken('token_v'))
-            .subscribe((result) => {
-                console.log('Ticket Generated!');
-                form.reset();
-            });
+        this.loginPressed = true;
+        const status = form.status;
+        if (status === 'valid'.toUpperCase()) {
+            this.data.createTicket(form.value, this.tokenUtil.getToken('token_v'))
+                .subscribe((result) => {
+                    console.log('Ticket Generated!');
+                    form.reset();
+                });
+        }
+    }
+
+    onFocus(inputName) {
+        this.focus[inputName] = true;
+    }
+
+    onBlur(inputName) {
+        this.focus[inputName] = false;
     }
 
 }

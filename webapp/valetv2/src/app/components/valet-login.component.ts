@@ -18,22 +18,41 @@ export class ValetLoginComponent implements OnInit, OnDestroy {
         pwd: null
     };
 
+    focus = {
+        uname: false,
+        pwd: false
+    };
+
+    loginPressed = false;
+
     constructor(private auth: AuthService,
         private tokenUtil: TokenUtilService,
         private router: Router) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
     ngOnDestroy(): void { }
 
     login(form) {
-        this.auth.loginValet(form.value.uname, form.value.pwd)
-            .subscribe((response: AuthResponse) => {
-                if (response.auth) {
-                    this.tokenUtil.setToken(response.token, 'token_v');
-                    this.router.navigateByUrl(`valet/ticket`,
-                        { skipLocationChange: false });
-                }
-            });
+        this.loginPressed = true;
+        const status = form.status;
+        if (status === 'valid'.toUpperCase() ) {
+            this.auth.loginValet(form.value.uname, form.value.pwd)
+                .subscribe((response: AuthResponse) => {
+                    if (response.auth) {
+                        this.tokenUtil.setToken(response.token, 'token_v');
+                        this.router.navigateByUrl(`valet/ticket`,
+                            { skipLocationChange: false });
+                    }
+                });
+        }
+    }
+
+    onFocus(inputName) {
+        this.focus[inputName] = true;
+    }
+
+    onBlur(inputName) {
+        this.focus[inputName] = false;
     }
 
 }

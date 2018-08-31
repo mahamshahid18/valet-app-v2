@@ -19,6 +19,11 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         reg_no: null
     };
     subscription: Subscription;
+    focus = {
+        phone: false,
+        regNo: false
+    };
+    loginPressed = false;
 
     constructor(private auth: AuthService,
         private tokenUtil: TokenUtilService,
@@ -37,18 +42,30 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     }
 
     login(form) {
-        this.subscription =
-            this.auth.loginUser(
-                this.userModel.ticket_no,
-                form.value.phone,
-                form.value.reg_no
-            )
-            .subscribe((response: AuthResponse) => {
-                if (response.auth) {
-                    this.tokenUtil.setToken(response.token);
-                    this.router.navigateByUrl(`user/${this.userModel.ticket_no}`,
-                        { skipLocationChange: false });
-                }
-            });
+        this.loginPressed = true;
+        const status = form.status;
+        if (status === 'valid'.toUpperCase()) {
+            this.subscription =
+                this.auth.loginUser(
+                    this.userModel.ticket_no,
+                    form.value.phone,
+                    form.value.reg_no
+                )
+                .subscribe((response: AuthResponse) => {
+                    if (response.auth) {
+                        this.tokenUtil.setToken(response.token);
+                        this.router.navigateByUrl(`user/${this.userModel.ticket_no}`,
+                            { skipLocationChange: false });
+                    }
+                });
+        }
+    }
+
+    onFocus(inputName) {
+        this.focus[inputName] = true;
+    }
+
+    onBlur(inputName) {
+        this.focus[inputName] = false;
     }
 }

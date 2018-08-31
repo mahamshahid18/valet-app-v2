@@ -16,16 +16,26 @@
                 placeholder="Enter username"
                 name="uname"
                 [(ngModel)]="valet.uname"
-                #uname>
-            <!-- use this for form errors, insert classes using angular                 -->
-            <!-- <div class="error-container">
-                <div class="error">
+                #uname="ngModel"
+                (focus)="onFocus('uname')"
+                (blur)="onBlur('uname')"
+                [ngClass]="{
+                    'input-invalid': uname.invalid && (uname.touched || uname.dirty),
+                    'input-invalid': uname.invalid && loginPressed,
+                    'input-valid': uname.valid && uname.touched && !focus.uname
+                }"
+            >
+            <!-- form validation -->
+            <div class="error-container"
+                 *ngIf="uname.invalid && (uname.touched || uname.dirty)">
+                <div class="error"
+                    *ngIf="uname.errors.required">
                     <span>
                         <i class="fas fa-exclamation-triangle"></i>
                     </span>
-                    Error message
+                    Username is required.
                 </div>
-            </div> -->
+            </div>
         </div>
         <div class="form-item">
             <label for="pwd">
@@ -36,7 +46,25 @@
                 placeholder="Enter password"
                 name="pwd"
                 [(ngModel)]="valet.pwd"
-                #pwd>
+                #pwd="ngModel"
+                (focus)="onFocus('pwd')"
+                (blur)="onBlur('pwd')"
+                [ngClass]="{
+                    'input-invalid': pwd.invalid && (pwd.touched || pwd.dirty),
+                    'input-invalid': pwd.invalid && loginPressed,
+                    'input-valid': pwd.valid && pwd.touched && !focus.pwd
+                }"
+            >
+            <!-- form validation -->
+            <div class="error-container"
+                *ngIf="pwd.invalid && (pwd.touched || pwd.dirty)">
+                <div class="error" *ngIf="pwd.errors.required">
+                    <span>
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    Password is required.
+                </div>
+            </div>
         </div>
         <button class="form-btn btn-blue"
             (click)="login(valetLogin.form)">
