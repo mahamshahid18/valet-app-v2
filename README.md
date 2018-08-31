@@ -18,7 +18,9 @@
 
 * ~Add styling to all forms~
 * ~Add validation styles to all forms~
-* Add validation checks to user login form
+* ~Add validation checks to user login form~
+* ~Add validation checks to valet login form~
+* ~Add validation checks to ticket creation form~
 * Add notification service to display info/error messages
 * Add route for handling 401 (unauthorized request) error
 * Add error handler to data service to redirect to the unauthorized url when the 401 error is returned from http call
