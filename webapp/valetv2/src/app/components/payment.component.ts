@@ -43,7 +43,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
             )
             .subscribe((response) => {
                 form.reset();
-                this.router.navigateByUrl('validate', { skipLocationChange: false });
+                this.router.navigateByUrl('validate/${ticket_no}', { skipLocationChange: false });
             });
     }
 
