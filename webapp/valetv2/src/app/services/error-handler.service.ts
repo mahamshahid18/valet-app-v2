@@ -17,7 +17,7 @@ export class ErrorHandlerService {
 
   errorMessages = {
     400: 'The inputs you provided resulted in a bad request. Please try again with valid data.',
-    401: 'You are not authorized to view the requested URL. Please login first and try again.',
+    401: 'You are not authorized to view the requested URL. Please login to view the page.',
     404: `The resource that you requested does not exist on the server.
           You might have provided incorrect data. Please try again or contact technical support for help.`,
     500: 'There seems to be a problem processing your request. Please try again.'
