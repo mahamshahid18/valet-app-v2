@@ -5,14 +5,14 @@
 * ~Replace mongoose with mongo db native driver to get rid of deprecation messages [mongoose downgraded to 5.2.8]~
 * ~Move routes to their specific files and use router in app.js instead~
 * ~Create POSTMAN tests for all endpoints~
-* Use generic error handler
+* ~Use generic error handler~
 * ~Make internal routes auth protected routes~
 * ~Implement authentication and authorization~
 * ~Add authentication flow for valet to generate tickets~
-* Add issuer and audience field to auth token's header
+* ~Add issuer and audience field to auth token's header [moved to next iteration]~
 * ~Add route for valet authentication~
 * ~Add route for valet authorization (verification)~
-* Add proper error objects to calls that fail due to db errors (check POST/ticket endpoint for reference)
+* ~Add proper error objects to calls that fail due to db errors (check POST/ticket endpoint for reference)~
 
 ## Front-end
 
