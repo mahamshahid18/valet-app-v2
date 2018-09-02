@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { catchError } from 'rxjs/operators';
 
+import { ErrorHandlerService } from '../services/error-handler.service';
 import { environment } from '../../environments/environment';
 import { Md5 } from 'ts-md5/dist/md5';
 
@@ -13,7 +14,7 @@ export class AuthService {
 
   url = '';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private errHandler: ErrorHandlerService) {
     this.url = environment.serverBaseUrl;
   }
 
@@ -25,7 +26,10 @@ export class AuthService {
     };
     return this.http.post(`${this.url}/authorize/user`, body)
       .pipe(
-        catchError((err) => { throw err; })
+        catchError((errObj) => {
+          this.errHandler.handleError(errObj);
+          throw errObj;
+        })
       );
   }
 
@@ -36,7 +40,10 @@ export class AuthService {
     };
     return this.http.post(`${this.url}/authorize/valet`, body)
       .pipe(
-        catchError((err) => { throw err; })
+        catchError((errObj) => {
+          this.errHandler.handleError(errObj);
+          throw errObj;
+        })
       );
   }
 
