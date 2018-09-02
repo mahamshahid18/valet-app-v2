@@ -1,9 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Subscription } from 'rxjs';
+
 import { AuthService } from '../services/auth.service';
 import { TokenUtilService } from '../services/token-util.service';
+import { NotifierService } from '../services/notifier.service';
+
 import { AuthResponse } from '../interfaces/AuthResponse';
-import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-user',
@@ -27,6 +31,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
 
     constructor(private auth: AuthService,
         private tokenUtil: TokenUtilService,
+        private notifier: NotifierService,
         private route: ActivatedRoute,
         private router: Router) {
     }
@@ -54,6 +59,11 @@ export class UserLoginComponent implements OnInit, OnDestroy {
                 .subscribe((response: AuthResponse) => {
                     if (response.auth) {
                         this.tokenUtil.setToken(response.token);
+                        this.notifier.addMessage(
+                            'success',
+                            'Login Successful',
+                            'Successfully logged in to valet ticket interface'
+                        );
                         this.router.navigateByUrl(`user/${this.userModel.ticket_no}`,
                             { skipLocationChange: false });
                     }

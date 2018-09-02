@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { DataService } from '../services/data.service';
 import { TokenUtilService } from '../services/token-util.service';
+import { NotifierService } from '../services/notifier.service';
 
 import { switchMap } from 'rxjs/operators';
 
@@ -39,6 +40,7 @@ export class TicketViewComponent implements OnInit, OnDestroy {
 
     constructor(private data: DataService,
         private tokenUtil: TokenUtilService,
+        private notifier: NotifierService,
         private router: Router,
         private route: ActivatedRoute) {
     }
@@ -74,6 +76,11 @@ export class TicketViewComponent implements OnInit, OnDestroy {
         this.showPayment = !this.ticketPaid && this.callCarPressed;
 
         if (!this.showPayment) {
+            this.notifier.addMessage(
+                'info',
+                'Car Called',
+                'You have requested for your car.'
+            );
             this.router.navigateByUrl(`validate/${this.ticket_no}`,
                 { skipLocationChange: false });
         }

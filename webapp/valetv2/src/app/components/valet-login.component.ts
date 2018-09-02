@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 import { TokenUtilService } from '../services/token-util.service';
+import { NotifierService } from '../services/notifier.service';
 import { AuthResponse } from '../interfaces/AuthResponse';
 
 @Component({
@@ -27,6 +28,7 @@ export class ValetLoginComponent implements OnInit, OnDestroy {
 
     constructor(private auth: AuthService,
         private tokenUtil: TokenUtilService,
+        private notifier: NotifierService,
         private router: Router) { }
 
     ngOnInit(): void {}
@@ -40,6 +42,11 @@ export class ValetLoginComponent implements OnInit, OnDestroy {
                 .subscribe((response: AuthResponse) => {
                     if (response.auth) {
                         this.tokenUtil.setToken(response.token, 'token_v');
+                        this.notifier.addMessage(
+                            'success',
+                            'Login Successful',
+                            'Successfully logged in to valet dashboard'
+                        );
                         this.router.navigateByUrl(`valet/ticket`,
                             { skipLocationChange: false });
                     }

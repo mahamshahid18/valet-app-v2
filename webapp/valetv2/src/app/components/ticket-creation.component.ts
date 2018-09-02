@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { DataService } from '../services/data.service';
 import { TokenUtilService } from '../services/token-util.service';
+import { NotifierService } from '../services/notifier.service';
 
 @Component({
     selector: 'app-ticket-creation',
@@ -37,7 +38,9 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
     loginPressed = false;
 
     constructor(private data: DataService,
-        private tokenUtil: TokenUtilService) { }
+        private tokenUtil: TokenUtilService,
+        private notifier: NotifierService
+    ) { }
 
     ngOnInit(): void {
         this.sub =
@@ -54,8 +57,13 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
         if (status === 'valid'.toUpperCase()) {
             this.data.createTicket(form.value, this.tokenUtil.getToken('token_v'))
                 .subscribe((result) => {
-                    console.log('Ticket Generated!');
+                    this.notifier.addMessage(
+                        'success',
+                        'Ticket Generated',
+                        'New valet e-ticket generated!'
+                    );
                     form.reset();
+                    this.loginPressed = false;
                 });
         }
     }
