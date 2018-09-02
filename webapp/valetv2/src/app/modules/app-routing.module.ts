@@ -7,6 +7,7 @@ import { TicketViewComponent } from '../components/ticket-view.component';
 import { TicketCreationComponent } from '../components/ticket-creation.component';
 import { TicketVerificationComponent } from '../components/ticket-verification.component';
 import { InvalidRouteComponent } from '../components/invalid-route.component';
+import { UnauthorizedComponent } from '../components/unauthorized.component';
 
 const routes: Routes = [
   { path: 'valet/login', component: ValetLoginComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'user/:ticket_no/login', component: UserLoginComponent },
   { path: 'user/:ticket_no', component: TicketViewComponent },
   { path: 'validate/:ticket_no', component: TicketVerificationComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', component: InvalidRouteComponent },
 ];
 
