@@ -5,13 +5,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
-const dbConfig = require('./db/dbConfig');
+
 const DbConnector = require('./db/DbConnector');
 let UserController = require('./user/UserController');
 let QrCodeController = require('./qrcode/QrCodeController');
 let TicketController = require('./ticket/TicketController');
 let AuthController = require('./auth/AuthController');
 let ValetController = require('./valet/ValetController');
+let ErrorHandler = require('./error/ErrorHandler');
 
 const app = express();
 // support encoded request bodies
@@ -27,7 +28,7 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log('Server started; listening on port 3000');
 
-    let dbCon = new DbConnector(dbConfig.dbServer, dbConfig.dbPort, dbConfig.dbName);
+    let dbCon = new DbConnector();
     dbCon.connect()
         .then(() => {
             console.log('Db connected successfully');
@@ -37,8 +38,11 @@ app.listen(3000, () => {
         });
 });
 
+// App split into specific middleware
 app.use('/ticket', TicketController);
 app.use('/user', UserController);
 app.use('/valet', ValetController);
 app.use('/qrcode', QrCodeController);
 app.use('/authorize', AuthController);
+// Error Handling middleware
+app.use(ErrorHandler);

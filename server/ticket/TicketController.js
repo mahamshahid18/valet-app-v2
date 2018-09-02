@@ -2,23 +2,35 @@
 
 const express = require('express');
 const User = require('../user/User');
-
 const router = express.Router();
 
-// start of the sequence number for generating tickets
-// let seqNo = JSON.parse(fs.readFileSync('./sequencer.json')).start;
-let seqNo = Math.round(Math.random() * 100);
+let seqNo = Math.round(Math.random() * process.env.SEQ_START);
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const client = require('twilio')(accountSid, authToken);
+
+let sendTextMessage = (phoneNo, ticketLink) => {
+    return client.messages
+        .create({
+            body: `Open up this link to view your valet ticket: ${ticketLink}`,
+            from: process.env.TWILIO_PHONE_NO,
+            to: phoneNo
+        });
+}
 
 /**
  * Endpoint to generate an e-ticket
  *
- * @name POST/generateTicket
+ * @name POST/ticket
  *
- * @param {string} name - Name of user
- * @param {string} phone - User's cellphone number
+ * @param {string} first_name - First name of user
+ * @param {string} last_name - Surname of user
+ * @param {string} phone_no - User's cellphone number
  * @param {string} reg_no - Car's registration number
  * @param {string} color - Car color
- * @param {string} model_make - Car's model & make
+ * @param {string} manufacturer - Car manufacturer
+ * @param {string} model - Car model
  *
  * Returns HTTP 200 OK status code
  */
@@ -32,7 +44,7 @@ router.route('/')
         const manufacturer = req.body.manufacturer;
         const model = req.body.model;
         const ticket_no = `${seqNo}${reg_no}`;
-        const ticketLink = `http://localhost:4200/ticket/${ticket_no}`;
+        const ticketLink = `${process.env.APP_BASE_URL}user/${ticket_no}/login`;
 
         let user = new User({
             first_name,
@@ -50,23 +62,25 @@ router.route('/')
         });
 
         user.save()
-            .then((value) => {
-                seqNo = Math.round(Math.random() * 100);
+        .then((value) => {
+                process.env.SEQ_START++;
+                seqNo = Math.round(Math.random() * process.env.SEQ_START);
 
-                console.log(`==========\n${ticketLink}\n==========`);
-
-                res.status(200).send();
-
-                // fs.writeFile('sequencer.json', JSON.stringify({
-                //     'start': seqNo
-                // }, null, 4));
+                sendTextMessage(phone_no, ticketLink)
+                    .then((values) => {
+                        res.status(200).send();
+                        console.log('Text message sent');
+                        console.log(`==========\n${ticketLink}\n==========`);
+                    })
+                    .catch((err) => {
+                        return next({
+                            error: err,
+                            status: 500,
+                            message: 'There was a problem processing the request'
+                        });
+                    });
             }, (err) => {
                 next(err);
-                res.status(500);
-                res.send({
-                    status: 500,
-                    error: err,
-                });
             });
     });
 

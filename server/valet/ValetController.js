@@ -22,7 +22,6 @@ router.route('/')
                 res.status(200).send(result);
             })
             .catch((err) => {
-                res.send(err);
                 next(err);
             });
     });
@@ -33,9 +32,11 @@ router.route('/verify')
             "_id": req.id
         })
         .then((valet) => {
+            if (!valet) {
+                res.status(404).send('No such resource exists!');
+            }
             res.status(200).send();
         }, (err) => {
-            res.send(err);
             next(err);
         });
     });

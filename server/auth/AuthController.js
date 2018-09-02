@@ -47,7 +47,6 @@ router.use((promise, req, res, next) => {
         res.send({ auth: true, token: token });
     })
     .catch((err) => {
-        res.send(err);
         next(err);
     });
 });

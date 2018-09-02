@@ -3,10 +3,10 @@
 const mongoose = require('mongoose');
 
 class DbConnector {
-    constructor(server, port, db) {
-        this.serverName = server;
-        this.port = port;
-        this.dbName = db;
+    constructor() {
+        this.serverName = process.env.DB_BASE_URL;
+        this.port = process.env.DB_PORT;
+        this.dbName = process.env.DB_NAME;
     }
 
     connect() {

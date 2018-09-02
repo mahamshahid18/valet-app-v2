@@ -24,13 +24,15 @@ router.route('/')
             "_id": req.id
         })
         .then((user) => {
+            if (!user) {
+                return res.status(404).send('No such resource exists!');
+            }
             res.status(200);
             res.json(user);
             console.log('===========\nUser sent\n===========');
             console.log(user);
         }, (err) => {
             next(err);
-            res.send(err);
         });
     })
     .patch(tokenCheck, (req, res, next) => {
@@ -44,7 +46,6 @@ router.route('/')
             console.log('===========\nTicket status updated\n===========');
         }, (err) => {
             next(err);
-            res.send(err);
         });
     });
 
@@ -54,10 +55,12 @@ router.route('/verify')
             "_id": req.id
         })
         .then((user) => {
+            if (!user) {
+                return res.status(404).send('No such resource exists!');
+            }
             res.status(200).send();
         }, (err) => {
             next(err);
-            res.send(err);
         });
     });
 

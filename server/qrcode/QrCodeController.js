@@ -25,6 +25,9 @@ router.route('/')
             { "ticket.no": 1, "ticket.paid": 1, "ticket.amount": 1, "car.reg_no": 1 }
         )
         .then((user) => {
+            if (!user) {
+                return res.status(404).send('No such resource exists!');
+            }
             const data = {
                 ticket_no: user.ticket.no,
                 reg_no: user.car.reg_no,
@@ -36,7 +39,6 @@ router.route('/')
             console.log('===========\nQRCode sent\n===========');
         }, (err) => {
             next(err);
-            res.send(err);
         });
     });
 
