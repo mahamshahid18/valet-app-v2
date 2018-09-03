@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverBaseUrl: 'http://localhost:3000'
+  serverBaseUrl: 'https://valet-app-v2.herokuapp.com'
 };
