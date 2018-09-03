@@ -20,8 +20,7 @@
                 (focus)="onFocus('uname')"
                 (blur)="onBlur('uname')"
                 [ngClass]="{
-                    'input-invalid': uname.invalid && (uname.touched || uname.dirty),
-                    'input-invalid': uname.invalid && loginPressed,
+                    'input-invalid': uname.invalid && (uname.touched || loginPressed),
                     'input-valid': uname.valid && uname.touched && !focus.uname
                 }"
             >
@@ -50,8 +49,7 @@
                 (focus)="onFocus('pwd')"
                 (blur)="onBlur('pwd')"
                 [ngClass]="{
-                    'input-invalid': pwd.invalid && (pwd.touched || pwd.dirty),
-                    'input-invalid': pwd.invalid && loginPressed,
+                    'input-invalid': pwd.invalid && (pwd.touched || loginPressed),
                     'input-valid': pwd.valid && pwd.touched && !focus.pwd
                 }"
             >
