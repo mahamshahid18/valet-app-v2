@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NotifierService } from './notifier.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,11 @@ export class ErrorHandlerService {
   };
 
   constructor(private notifier: NotifierService,
-    private router: Router) { }
+    private router: Router,
+    private spinner: NgxSpinnerService) { }
 
   handleError(err) {
+    this.spinner.hide();
     const code: number = err.status || 500;
     this.notifier.addMessage('error', 'Error', this.errorMessages[code]);
     switch (code) {
@@ -40,6 +43,18 @@ export class ErrorHandlerService {
         break;
       default:
     }
+  }
+
+  authError(err) {
+    this.spinner.hide();
+    const code: number = err.status || 500;
+    let errMsg = this.errorMessages[code];
+
+    if (code === 401 || code === 404) {
+      errMsg = 'The username and (or) password is incorrect. Please try again.';
+    }
+
+    this.notifier.addMessage('error', 'Error', errMsg);
   }
 }
 

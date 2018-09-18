@@ -27,7 +27,7 @@ export class AuthService {
     return this.http.post(`${this.url}/authorize/user`, body)
       .pipe(
         catchError((errObj) => {
-          this.errHandler.handleError(errObj);
+          this.errHandler.authError(errObj);
           throw errObj;
         })
       );
@@ -41,7 +41,7 @@ export class AuthService {
     return this.http.post(`${this.url}/authorize/valet`, body)
       .pipe(
         catchError((errObj) => {
-          this.errHandler.handleError(errObj);
+          this.errHandler.authError(errObj);
           throw errObj;
         })
       );
