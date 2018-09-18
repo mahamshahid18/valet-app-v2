@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { TokenUtilService } from '../services/token-util.service';
 import { NotifierService } from '../services/notifier.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { AuthResponse } from '../interfaces/AuthResponse';
 
@@ -33,7 +34,9 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         private tokenUtil: TokenUtilService,
         private notifier: NotifierService,
         private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        private spinner: NgxSpinnerService
+    ) {
     }
 
     ngOnInit(): void {
@@ -47,8 +50,13 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     }
 
     login(form) {
+        this.spinner.show();
+
         this.loginPressed = true;
         const status = form.status;
+        // cleaning form value for car license plate no.
+        form.value.reg_no = form.value.reg_no.replace('-', '').toUpperCase();
+
         if (status === 'valid'.toUpperCase()) {
             this.subscription =
                 this.auth.loginUser(
@@ -58,6 +66,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
                 )
                 .subscribe((response: AuthResponse) => {
                     if (response.auth) {
+                        this.spinner.hide();
                         this.tokenUtil.setToken(response.token);
                         this.notifier.addMessage(
                             'success',

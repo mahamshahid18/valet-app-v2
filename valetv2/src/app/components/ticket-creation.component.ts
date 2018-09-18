@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../services/data.service';
 import { TokenUtilService } from '../services/token-util.service';
 import { NotifierService } from '../services/notifier.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-ticket-creation',
@@ -39,7 +40,8 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
 
     constructor(private data: DataService,
         private tokenUtil: TokenUtilService,
-        private notifier: NotifierService
+        private notifier: NotifierService,
+        private spinner: NgxSpinnerService
     ) { }
 
     ngOnInit(): void {
@@ -52,11 +54,18 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
     }
 
     generateTicket(form) {
+        this.spinner.show();
+
         this.loginPressed = true;
         const status = form.status;
+
+        // replacing dashes from car license plate & converting to uppercase
+        form.value.reg_no = form.value.reg_no.replace('-', '').toUpperCase();
+
         if (status === 'valid'.toUpperCase()) {
             this.data.createTicket(form.value, this.tokenUtil.getToken('token_v'))
                 .subscribe((result) => {
+                    this.spinner.hide();
                     this.notifier.addMessage(
                         'success',
                         'Ticket Generated',

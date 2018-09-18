@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenUtilService } from '../services/token-util.service';
 import { NotifierService } from '../services/notifier.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 import { AuthResponse } from '../interfaces/AuthResponse';
 
 @Component({
@@ -29,12 +31,15 @@ export class ValetLoginComponent implements OnInit, OnDestroy {
     constructor(private auth: AuthService,
         private tokenUtil: TokenUtilService,
         private notifier: NotifierService,
-        private router: Router) { }
+        private router: Router,
+        private spinner: NgxSpinnerService) { }
 
     ngOnInit(): void {}
     ngOnDestroy(): void { }
 
     login(form) {
+        this.spinner.show();
+
         this.loginPressed = true;
         const status = form.status;
         if (status === 'valid'.toUpperCase() ) {
@@ -42,6 +47,7 @@ export class ValetLoginComponent implements OnInit, OnDestroy {
                 .subscribe((response: AuthResponse) => {
                     if (response.auth) {
                         this.tokenUtil.setToken(response.token, 'token_v');
+                        this.spinner.hide();
                         this.notifier.addMessage(
                             'success',
                             'Login Successful',

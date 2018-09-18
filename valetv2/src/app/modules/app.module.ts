@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { QRCodeModule } from 'angularx-qrcode';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from '../components/app.component';
 import { ValetLoginComponent } from '../components/valet-login.component';
@@ -39,7 +40,8 @@ import { NotifierService } from '../services/notifier.service';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    QRCodeModule
+    QRCodeModule,
+    NgxSpinnerModule
   ],
   providers: [
     AuthService,
