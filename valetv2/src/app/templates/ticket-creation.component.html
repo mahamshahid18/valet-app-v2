@@ -70,6 +70,7 @@
                 [(ngModel)]="ticket.phone"
                 name="phone_no"
                 #phone="ngModel"
+                pattern="[+]?\d{1,3}-\d{1,3}-\d{7,8}"
                 (focus)="onFocus('phone')"
                 (blur)="onBlur('phone')"
                 [ngClass]="{
@@ -78,7 +79,6 @@
                     'input-valid': phone.valid && phone.touched && !focus.phone
                 }"
             >
-             <!-- pattern="^(+[\d]{2,3}-[\d]{3}-[\d]{7,8})$" -->
             <!-- form validation -->
             <div class="error-container" *ngIf="phone.invalid && (phone.touched || phone.dirty)">
                 <div class="error" *ngIf="phone.errors.required">
@@ -86,6 +86,12 @@
                         <i class="fas fa-exclamation-triangle"></i>
                     </span>
                     Phone Number is required.
+                </div>
+                <div class="error" *ngIf="phone.errors.pattern">
+                    <span>
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    The pattern does not match. Enter format like: +(2 digit country code)-(3 digit dialing code)-(7 digit phone no)
                 </div>
             </div>
         </div>
