@@ -61,6 +61,6 @@ Please take a look at the source code for more details about the functionality o
 ## Demo 💻
 A live demo of the application is not be possible because there is a restriction on which phone numbers can receive an SMS from the backend (your phone number is required to receive a valet ticket and view the whole flow of the application). If you want to see a live demo, please contact me.
 
-You can also take a [**look at the video demo of the application here**]().
+You can also take a [**look at the video demo of the application here**](https://vimeo.com/293048162).
 
 Please let me know if you have any questions about this project or if you want to discuss anything related to my other projects 😄
